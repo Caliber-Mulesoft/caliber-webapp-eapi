@@ -184,79 +184,22 @@ output application/json
         </ee:transform>
     </flow>
     <flow name="get:\report\utilization:caliber-webapp-eapi-config">
-        <ee:transform xmlns:ee="http://www.mulesoft.org/schema/mule/ee/core" xsi:schemaLocation="http://www.mulesoft.org/schema/mule/ee/core http://www.mulesoft.org/schema/mule/ee/core/current/mule-ee.xsd">
+        <flow-ref doc:name="get-utilization" doc:id="90185625-db8d-4b59-b121-3d77e9e9baa6" name="get-utilization"/>
+		<ee:transform xmlns:ee="http://www.mulesoft.org/schema/mule/ee/core" xsi:schemaLocation="http://www.mulesoft.org/schema/mule/ee/core http://www.mulesoft.org/schema/mule/ee/core/current/mule-ee.xsd">
             <ee:message>
                 <ee:set-payload><![CDATA[%dw 2.0
 output application/json
 ---
 {
-  message: "Trainer utilization: ##%"
+  message: payload
 }]]></ee:set-payload>
             </ee:message>
         </ee:transform>
+		<logger level="INFO" doc:name="Logger" doc:id="274eff26-d265-4b81-b411-ae8ddaabc0f2" />
     </flow>
     <flow name="get:\report\(trainerEmail):caliber-webapp-eapi-config">
-        <ee:transform xmlns:ee="http://www.mulesoft.org/schema/mule/ee/core">
-            <ee:variables>
-                <ee:set-variable variableName="trainerEmail">attributes.uriParams.'trainerEmail'</ee:set-variable>
-            </ee:variables>
-        </ee:transform>
-        <ee:transform xmlns:ee="http://www.mulesoft.org/schema/mule/ee/core" xsi:schemaLocation="http://www.mulesoft.org/schema/mule/ee/core http://www.mulesoft.org/schema/mule/ee/core/current/mule-ee.xsd">
-            <ee:message>
-                <ee:set-payload><![CDATA[%dw 2.0
-output application/json
----
-{
-  employee: {
-    email: "james.gosling@revature.com",
-    firstName: "James",
-    lastName: "Gosling"
-  },
-  batches: [
-    {
-      id: 121501,
-      batchId: "Ix2x2UAB",
-      name: "1804  Apr16 -2",
-      startDate: "2018-04-23",
-      endDate: "2018-06-29",
-      skill: "JTA",
-      location: "Revature LLC, Reston VA 20190",
-      "type": "Revature",
-      qcNotes: [
-        {
-          noteId: 398328,
-          content: "mock content",
-          week: 1,
-          batchId: "Ix2x2UAB",
-          associateId: 654321,
-          employeeId: 123456,
-          "type": "QC_BATCH",
-          technicalStatus: "Good",
-          createdOn: "01-01-2019",
-          lastUpdate: "01-01-2020",
-          categories: [
-            "Java"
-          ]
-        }
-      ],
-      assessments: [
-        {
-          assessmentId: 177003,
-          rawScore: 100,
-          assessmentTitle: "mock title",
-          assessmentType: "Exam",
-          weekNumber: 1,
-          batchId: "Ix2x2UAB",
-          assessmentCategory: 1,
-          skillCategory: "Java",
-          assignmentDate: "01-01-2020",
-          average: 76.1
-        }
-      ]
-    }
-  ]
-}]]></ee:set-payload>
-            </ee:message>
-        </ee:transform>
+		<set-variable value="#[attributes.uriParams.trainerEmail]" doc:name="trainerEmail" doc:id="be49e666-c13e-4177-8457-61c0c9ec32cc" variableName="trainerEmail" />
+		<flow-ref doc:name="get-trainer-report" doc:id="8a278e7f-8a82-443c-8036-032326a9fc8f" name="get-trainer-report"/>
+		<logger level="INFO" doc:name="Logger" doc:id="fd8cceb8-8b4f-49d4-bb8c-bc8a4cffed2e" />
     </flow>
 </mule>
