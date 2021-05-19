@@ -1,0 +1,54 @@
+#%RAML 1.0 DataType
+
+type: object
+properties:
+  employee:
+    type: object
+    properties: 
+      email: string
+      firstName: string
+      lastName: string
+  batches: 
+    type: array
+    items:
+      properties:
+        id: integer
+        batchId: string
+        name: string
+        startDate: string
+        endDate: string
+        skill: string
+        location: string
+        type: string
+        qcNotes:
+          type: array
+          items:
+            properties: 
+              noteId: number
+              content: string
+              week: number
+              batchId: string
+              associateId: number
+              employeeId: number
+              type: string
+              technicalStatus: string 
+              createdOn: string
+              lastUpdate: string
+              categories:
+                type: array
+                items:
+                  string
+        assessments:
+          type: array
+          items:
+            properties:
+              assessmentId: number
+              rawScore: number
+              assessmentTitle: string
+              assessmentType: string
+              weekNumber: number
+              batchId: string
+              assessmentCategory: number
+              skillCategory: string
+              assignmentDate: string
+              average: number

@@ -1,0 +1,93 @@
+#%RAML 1.0
+title: Caliber Webapp eapi
+
+description: As a user, I can access the process apis for each process from a single webapp.
+
+types:
+  categoryAggregate: !include DataTypes/categoryAggregationDataType.raml
+  typeAggregate: !include DataTypes/assessmentAggregationDataType.raml
+  trainerReport: !include /DataTypes/trainerReportDataType.raml
+  Percentage: !include DataTypes/Percentage.raml
+  trendline: !include DataTypes/trendlineDataType.raml
+
+/trendline:
+  get:
+    responses:
+      200:
+        body:
+          application/json:
+            type: trendline[]
+            examples:
+              output: !include Examples/trendlineExample.raml
+
+/aggregate:
+  /category:
+   get:
+     responses:
+       200:
+         body:
+           application/json:
+             type: categoryAggregate[]
+             examples:
+               output: !include Examples/categoryAggregationExample.raml
+  /type:
+    get:
+      responses:
+        200:
+          body:
+            application/json:
+              type: typeAggregate[]
+              examples:
+                output: !include Examples/assessmentAggregationExample.raml
+
+/report:
+  /{trainerEmail}:
+    uriParameters:
+      trainerEmail:
+        type: string
+        required: true
+        minLength: 6
+    get:
+      responses:
+        200:
+          body:
+            application/json:
+              type: trainerReport
+              examples:
+                output: !include /Examples/trainerReportExample.raml
+
+
+  /utilization:
+    get:
+      responses:
+        200:
+          body:
+            application/json:
+              example: 
+                message: "Trainer utilization: ##%"
+
+
+/percentage/{period}:
+  get:
+    displayName: Get Percentages
+    description: Get the percentage of each technical status for a specific period (current week "week", current year "year", all time "all", by year "2020")
+    responses:
+      "200":
+        description: Success
+        body:
+          application/json:
+            examples:
+              output: !include Examples/PercentageExample.raml
+
+
+/compare/{period}:
+   get:
+    displayName: Get Changes of Percentages
+    description: Get the decrease/increase in the percentage of each technical status by comparing current week with a specific period (last week "week", current year "year", all time "all")
+    responses:
+      "200":
+        description: Success
+        body:
+          application/json:
+            examples:
+              output: !include Examples/PercentageChangeExample.raml
