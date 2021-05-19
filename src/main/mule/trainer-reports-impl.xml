@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<mule xmlns:ee="http://www.mulesoft.org/schema/mule/ee/core" xmlns:trainer-reports-api="http://www.mulesoft.org/schema/mule/trainer-reports-api"
+	xmlns="http://www.mulesoft.org/schema/mule/core"
+	xmlns:doc="http://www.mulesoft.org/schema/mule/documentation" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://www.mulesoft.org/schema/mule/core http://www.mulesoft.org/schema/mule/core/current/mule.xsd
+http://www.mulesoft.org/schema/mule/trainer-reports-api http://www.mulesoft.org/schema/mule/trainer-reports-api/current/mule-trainer-reports-api.xsd
+http://www.mulesoft.org/schema/mule/ee/core http://www.mulesoft.org/schema/mule/ee/core/current/mule-ee.xsd">
+	<flow name="get-trainer-report" doc:id="1fd3cc86-d09f-47db-aac9-fa4f0cbcc716" >
+		<trainer-reports-api:get-report-by-trainer-email doc:name="Get report by trainer email" doc:id="f8e6e68c-55e0-4edf-8b38-4ecdc5c848c3" config-ref="trainerReportsApiConfig" trainer-email="#[vars.trainerEmail]" />
+		<ee:transform doc:name="Transform Message" doc:id="3ba78e8f-3933-4234-abe3-c31274b01e00" xsi:schemaLocation="http://www.mulesoft.org/schema/mule/ee/core http://www.mulesoft.org/schema/mule/ee/core/current/mule-ee.xsd" >
+			<ee:message >
+				<ee:set-payload ><![CDATA[%dw 2.0
+output application/json
+---
+{
+  message: payload
+}]]></ee:set-payload>
+			</ee:message>
+		</ee:transform>
+		<logger level="INFO" doc:name="Logger" doc:id="a8247b88-2cc4-4c03-82f5-0c6f55465443" />
+	</flow>
+	<flow name="get-utilization" doc:id="05eb6fca-3ff2-4dd2-9434-9bdf6eaa342e" >
+		<trainer-reports-api:get-utilizations doc:name="Get utilizations" doc:id="477fed32-253f-4b0c-b993-e1643d72d1c7" config-ref="trainerReportsApiConfig" />
+		<logger level="INFO" doc:name="Logger" doc:id="8a1f289f-ccfb-4bd5-85cb-b6bb4ba87997" />
+	</flow>
+</mule>
