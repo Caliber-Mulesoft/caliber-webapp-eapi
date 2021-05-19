@@ -42,13 +42,6 @@
 			<classifier>mule-plugin</classifier>
 		</dependency>
 		<dependency>
-			<groupId>202383ba-8a30-47f2-a9af-40a59ffe741f</groupId>
-			<artifactId>caliber-webapp-eapi</artifactId>
-			<version>1.0.0</version>
-			<classifier>raml</classifier>
-			<type>zip</type>
-		</dependency>
-		<dependency>
 			<groupId>org.mule.modules</groupId>
 			<artifactId>mule-apikit-module</artifactId>
 			<version>1.4.1</version>
@@ -70,6 +63,25 @@
 			<groupId>77cab550-53a1-4b36-95a6-10c814008004</groupId>
 			<artifactId>mule-plugin-trainer-report-papi</artifactId>
 			<version>1.0.2</version>
+			<classifier>mule-plugin</classifier>
+		</dependency>
+		<dependency>
+			<groupId>202383ba-8a30-47f2-a9af-40a59ffe741f</groupId>
+			<artifactId>caliber-webapp-eapi</artifactId>
+			<version>1.0.1</version>
+			<classifier>raml</classifier>
+			<type>zip</type>
+		</dependency>
+		<dependency>
+			<groupId>e437095b-9a06-4ddd-b047-4b4137c24b31</groupId>
+			<artifactId>mule-plugin-assessmentsprocessapi</artifactId>
+			<version>1.0.2</version>
+			<classifier>mule-plugin</classifier>
+		</dependency>
+		<dependency>
+			<groupId>e437095b-9a06-4ddd-b047-4b4137c24b31</groupId>
+			<artifactId>mule-plugin-historic-trendline</artifactId>
+			<version>1.0.1</version>
 			<classifier>mule-plugin</classifier>
 		</dependency>
 	</dependencies>

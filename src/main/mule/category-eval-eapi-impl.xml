@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<mule xmlns:assessments-process-api="http://www.mulesoft.org/schema/mule/assessments-process-api" xmlns:http="http://www.mulesoft.org/schema/mule/http"
+	xmlns:historic-trendline-process-api="http://www.mulesoft.org/schema/mule/historic-trendline-process-api"
+	xmlns="http://www.mulesoft.org/schema/mule/core" xmlns:doc="http://www.mulesoft.org/schema/mule/documentation" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://www.mulesoft.org/schema/mule/core http://www.mulesoft.org/schema/mule/core/current/mule.xsd
+http://www.mulesoft.org/schema/mule/historic-trendline-process-api http://www.mulesoft.org/schema/mule/historic-trendline-process-api/current/mule-historic-trendline-process-api.xsd
+http://www.mulesoft.org/schema/mule/http http://www.mulesoft.org/schema/mule/http/current/mule-http.xsd
+http://www.mulesoft.org/schema/mule/assessments-process-api http://www.mulesoft.org/schema/mule/assessments-process-api/current/mule-assessments-process-api.xsd">
+	<flow name="trendline" doc:id="905a90b4-7a3c-45be-ad58-c1f9c5811306" >
+		<historic-trendline-process-api:get-trendlines doc:name="Get trendlines" doc:id="ed9a7c9b-1c45-416a-a26d-8ba122c11123" config-ref="historicTrendlineApiConfig"/>
+		<logger level="INFO" doc:name="Logger" doc:id="978c5bcb-90c3-4fed-9230-d5e7647d79e3" />
+	</flow>
+	<flow name="aggregated-category" doc:id="9b8b319c-21a8-498d-97de-c2d2a910b511" >
+		<assessments-process-api:get-aggregated-assessment-score-by-category doc:name="Get Aggregated Assessment Score By Category" doc:id="19eab7eb-91b5-47bd-b901-64b3bea9a22f" config-ref="assessmentsProcessApiConfig"/>
+		<logger level="INFO" doc:name="Logger" doc:id="32efd058-b8a8-40cf-a99a-446252fc4049" />
+	</flow>
+	<flow name="aggregated-assessment-type" doc:id="e007e60e-f295-4bee-9ec8-7b1f2f929de5" >
+		<assessments-process-api:get-aggregated-assessment-score-by-type doc:name="Get Aggregated Assessment Score By Type" doc:id="2a538734-4966-4f51-85b5-48c0aa3f7cf2" config-ref="assessmentsProcessApiConfig"/>
+		<logger level="INFO" doc:name="Logger" doc:id="7789daa7-c2d0-4a52-a3fc-79250b96e892" />
+	</flow>
+</mule>

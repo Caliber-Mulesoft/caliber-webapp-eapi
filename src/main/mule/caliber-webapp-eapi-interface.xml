@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<mule xmlns:doc="http://www.mulesoft.org/schema/mule/documentation" xmlns="http://www.mulesoft.org/schema/mule/core" xmlns:apikit="http://www.mulesoft.org/schema/mule/mule-apikit" xmlns:http="http://www.mulesoft.org/schema/mule/http" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://www.mulesoft.org/schema/mule/core http://www.mulesoft.org/schema/mule/core/current/mule.xsd http://www.mulesoft.org/schema/mule/http http://www.mulesoft.org/schema/mule/http/current/mule-http.xsd http://www.mulesoft.org/schema/mule/mule-apikit http://www.mulesoft.org/schema/mule/mule-apikit/current/mule-apikit.xsd ">
+<mule xmlns="http://www.mulesoft.org/schema/mule/core" xmlns:apikit="http://www.mulesoft.org/schema/mule/mule-apikit" xmlns:doc="http://www.mulesoft.org/schema/mule/documentation" xmlns:http="http://www.mulesoft.org/schema/mule/http" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://www.mulesoft.org/schema/mule/core http://www.mulesoft.org/schema/mule/core/current/mule.xsd http://www.mulesoft.org/schema/mule/http http://www.mulesoft.org/schema/mule/http/current/mule-http.xsd http://www.mulesoft.org/schema/mule/mule-apikit http://www.mulesoft.org/schema/mule/mule-apikit/current/mule-apikit.xsd ">
     <http:listener-config name="caliber-webapp-eapi-httpListenerConfig">
         <http:listener-connection host="0.0.0.0" port="8081" />
     </http:listener-config>
-    <apikit:config name="caliber-webapp-eapi-config" api="resource::202383ba-8a30-47f2-a9af-40a59ffe741f:caliber-webapp-eapi:1.0.0:raml:zip:caliber-webapp-eapi.raml" outboundHeadersMapName="outboundHeaders" httpStatusVarName="httpStatus" />
+    <apikit:config name="caliber-webapp-eapi-config" api="resource::202383ba-8a30-47f2-a9af-40a59ffe741f:caliber-webapp-eapi:1.0.1:raml:zip:caliber-webapp-eapi.raml" outboundHeadersMapName="outboundHeaders" httpStatusVarName="httpStatus" />
     <flow name="caliber-webapp-eapi-main">
         <http:listener config-ref="caliber-webapp-eapi-httpListenerConfig" path="/api/*">
             <http:response statusCode="#[vars.httpStatus default 200]">
@@ -124,27 +124,12 @@ output application/json
         </error-handler>
     </flow>
     <flow name="get:\aggregate\category:caliber-webapp-eapi-config">
-        <ee:transform xmlns:ee="http://www.mulesoft.org/schema/mule/ee/core" xsi:schemaLocation="http://www.mulesoft.org/schema/mule/ee/core http://www.mulesoft.org/schema/mule/ee/core/current/mule-ee.xsd">
-            <ee:message>
-                <ee:set-payload><![CDATA[%dw 2.0
-output application/json
----
-[
-  {
-    category: "SOAP",
-    aggregatedScore: 76.54
-  }, 
-  {
-    category: "REST",
-    aggregatedScore: 87.65
-  }
-]]]></ee:set-payload>
-            </ee:message>
-        </ee:transform>
+        <flow-ref doc:name="aggregated-category" doc:id="1c6b068c-5184-40a2-874a-736576255338" name="aggregated-category"/>
+		<logger level="INFO" doc:name="Logger" doc:id="390a2455-1943-4c8d-b267-02e507bb23f6" />
     </flow>
     <flow name="get:\compare\(period):caliber-webapp-eapi-config">
-        <flow-ref doc:name="Flow Reference" doc:id="102fda85-6295-4a7c-89bf-1cbec605af5d" name="get-changes-of-percentages-by-period"/>
-		<ee:transform xmlns:ee="http://www.mulesoft.org/schema/mule/ee/core" xsi:schemaLocation="http://www.mulesoft.org/schema/mule/ee/core http://www.mulesoft.org/schema/mule/ee/core/current/mule-ee.xsd">
+        <flow-ref doc:name="Flow Reference" doc:id="102fda85-6295-4a7c-89bf-1cbec605af5d" name="get-changes-of-percentages-by-period" />
+        <ee:transform xmlns:ee="http://www.mulesoft.org/schema/mule/ee/core" xsi:schemaLocation="http://www.mulesoft.org/schema/mule/ee/core http://www.mulesoft.org/schema/mule/ee/core/current/mule-ee.xsd">
             <ee:message>
                 <ee:set-payload><![CDATA[%dw 2.0
 output application/json
@@ -154,8 +139,8 @@ payload]]></ee:set-payload>
         </ee:transform>
     </flow>
     <flow name="get:\percentage\(period):caliber-webapp-eapi-config">
-        <flow-ref doc:name="Flow Reference" doc:id="f80bd1ef-4be5-4106-af97-16ef5f5d86eb" name="get-percentages-by-period"/>
-		<ee:transform xmlns:ee="http://www.mulesoft.org/schema/mule/ee/core" xsi:schemaLocation="http://www.mulesoft.org/schema/mule/ee/core http://www.mulesoft.org/schema/mule/ee/core/current/mule-ee.xsd">
+        <flow-ref doc:name="Flow Reference" doc:id="f80bd1ef-4be5-4106-af97-16ef5f5d86eb" name="get-percentages-by-period" />
+        <ee:transform xmlns:ee="http://www.mulesoft.org/schema/mule/ee/core" xsi:schemaLocation="http://www.mulesoft.org/schema/mule/ee/core http://www.mulesoft.org/schema/mule/ee/core/current/mule-ee.xsd">
             <ee:message>
                 <ee:set-payload><![CDATA[%dw 2.0
 output application/json
@@ -165,27 +150,12 @@ payload]]></ee:set-payload>
         </ee:transform>
     </flow>
     <flow name="get:\aggregate\type:caliber-webapp-eapi-config">
-        <ee:transform xmlns:ee="http://www.mulesoft.org/schema/mule/ee/core" xsi:schemaLocation="http://www.mulesoft.org/schema/mule/ee/core http://www.mulesoft.org/schema/mule/ee/core/current/mule-ee.xsd">
-            <ee:message>
-                <ee:set-payload><![CDATA[%dw 2.0
-output application/json
----
-[
-  {
-    assessmentType: "Written Evaluation",
-    aggregatedScore: 89.65
-  }, 
-  {
-    assessmentType: "Oral Exam",
-    aggregatedScore: 76.25
-  }
-]]]></ee:set-payload>
-            </ee:message>
-        </ee:transform>
+        <flow-ref doc:name="aggregated-assessment-type" doc:id="08c6edff-25e0-4d35-92f9-b97c0a8bd0e8" name="aggregated-assessment-type"/>
+		<logger level="INFO" doc:name="Logger" doc:id="60279c84-3d68-4e3f-8651-8c9d5528326a" />
     </flow>
     <flow name="get:\report\utilization:caliber-webapp-eapi-config">
-        <flow-ref doc:name="get-utilization" doc:id="90185625-db8d-4b59-b121-3d77e9e9baa6" name="get-utilization"/>
-		<ee:transform xmlns:ee="http://www.mulesoft.org/schema/mule/ee/core" xsi:schemaLocation="http://www.mulesoft.org/schema/mule/ee/core http://www.mulesoft.org/schema/mule/ee/core/current/mule-ee.xsd">
+        <flow-ref doc:name="get-utilization" doc:id="90185625-db8d-4b59-b121-3d77e9e9baa6" name="get-utilization" />
+        <ee:transform xmlns:ee="http://www.mulesoft.org/schema/mule/ee/core" xsi:schemaLocation="http://www.mulesoft.org/schema/mule/ee/core http://www.mulesoft.org/schema/mule/ee/core/current/mule-ee.xsd">
             <ee:message>
                 <ee:set-payload><![CDATA[%dw 2.0
 output application/json
@@ -195,11 +165,15 @@ output application/json
 }]]></ee:set-payload>
             </ee:message>
         </ee:transform>
-		<logger level="INFO" doc:name="Logger" doc:id="274eff26-d265-4b81-b411-ae8ddaabc0f2" />
+        <logger level="INFO" doc:name="Logger" doc:id="274eff26-d265-4b81-b411-ae8ddaabc0f2" />
     </flow>
     <flow name="get:\report\(trainerEmail):caliber-webapp-eapi-config">
-		<set-variable value="#[attributes.uriParams.trainerEmail]" doc:name="trainerEmail" doc:id="be49e666-c13e-4177-8457-61c0c9ec32cc" variableName="trainerEmail" />
-		<flow-ref doc:name="get-trainer-report" doc:id="8a278e7f-8a82-443c-8036-032326a9fc8f" name="get-trainer-report"/>
-		<logger level="INFO" doc:name="Logger" doc:id="fd8cceb8-8b4f-49d4-bb8c-bc8a4cffed2e" />
+        <set-variable value="#[attributes.uriParams.trainerEmail]" doc:name="trainerEmail" doc:id="be49e666-c13e-4177-8457-61c0c9ec32cc" variableName="trainerEmail" />
+        <flow-ref doc:name="get-trainer-report" doc:id="8a278e7f-8a82-443c-8036-032326a9fc8f" name="get-trainer-report" />
+        <logger level="INFO" doc:name="Logger" doc:id="fd8cceb8-8b4f-49d4-bb8c-bc8a4cffed2e" />
+    </flow>
+    <flow name="get:\trendline:caliber-webapp-eapi-config">
+        <flow-ref doc:name="trendline" doc:id="3afcbc56-c21d-43a3-96ee-3d4f7e796428" name="trendline"/>
+		<logger level="INFO" doc:name="Logger" doc:id="9b7a426a-b351-433c-8632-a71aef690ad4" />
     </flow>
 </mule>
