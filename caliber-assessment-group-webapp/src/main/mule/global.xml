@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<mule xmlns:assessments-process-api="http://www.mulesoft.org/schema/mule/assessments-process-api" xmlns:historic-trendline-process-api="http://www.mulesoft.org/schema/mule/historic-trendline-process-api"
+	xmlns:http="http://www.mulesoft.org/schema/mule/http"
+	xmlns="http://www.mulesoft.org/schema/mule/core" xmlns:doc="http://www.mulesoft.org/schema/mule/documentation" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://www.mulesoft.org/schema/mule/core http://www.mulesoft.org/schema/mule/core/current/mule.xsd
+http://www.mulesoft.org/schema/mule/http http://www.mulesoft.org/schema/mule/http/current/mule-http.xsd
+http://www.mulesoft.org/schema/mule/historic-trendline-process-api http://www.mulesoft.org/schema/mule/historic-trendline-process-api/current/mule-historic-trendline-process-api.xsd
+http://www.mulesoft.org/schema/mule/assessments-process-api http://www.mulesoft.org/schema/mule/assessments-process-api/current/mule-assessments-process-api.xsd">
+	<http:listener-config name="HTTP_Listener_config" doc:name="HTTP Listener config" doc:id="466a7b77-7975-47a9-a111-49bb4a2a5b48" >
+		<http:listener-connection host="0.0.0.0" port="8081" />
+	</http:listener-config>
+	<historic-trendline-process-api:config name="Historic_Trendline_Process_API_Config" doc:name="Historic Trendline Process API Config" doc:id="826c9a50-ca66-44cb-a54f-9726a1b01306" property_port="8081" property_protocol="http" property_host="http://trendline-historic-papi.us-e2.cloudhub.io/" property_basePath="/api"/>
+	<assessments-process-api:config name="Assessments_Process_API_Config" doc:name="Assessments Process API Config" doc:id="d4df9964-c66a-4186-baac-66001a2abfc4" property_host="http://caliber-assessment-aggregation-papi.us-e2.cloudhub.io/" property_port="8081" property_protocol="http" property_basePath="/api" />
+</mule>
