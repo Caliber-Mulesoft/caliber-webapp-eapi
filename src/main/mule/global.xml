@@ -1,10 +1,14 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<mule xmlns:trainer-reports-api="http://www.mulesoft.org/schema/mule/trainer-reports-api" xmlns:qc-process-api="http://www.mulesoft.org/schema/mule/qc-process-api"
-	xmlns="http://www.mulesoft.org/schema/mule/core"
-	xmlns:doc="http://www.mulesoft.org/schema/mule/documentation" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://www.mulesoft.org/schema/mule/core http://www.mulesoft.org/schema/mule/core/current/mule.xsd
+<mule xmlns:historic-trendline-process-api="http://www.mulesoft.org/schema/mule/historic-trendline-process-api" xmlns:assessments-process-api="http://www.mulesoft.org/schema/mule/assessments-process-api"
+	xmlns:trainer-reports-api="http://www.mulesoft.org/schema/mule/trainer-reports-api"
+	xmlns:qc-process-api="http://www.mulesoft.org/schema/mule/qc-process-api" xmlns="http://www.mulesoft.org/schema/mule/core" xmlns:doc="http://www.mulesoft.org/schema/mule/documentation" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://www.mulesoft.org/schema/mule/core http://www.mulesoft.org/schema/mule/core/current/mule.xsd
 http://www.mulesoft.org/schema/mule/qc-process-api http://www.mulesoft.org/schema/mule/qc-process-api/current/mule-qc-process-api.xsd
-http://www.mulesoft.org/schema/mule/trainer-reports-api http://www.mulesoft.org/schema/mule/trainer-reports-api/current/mule-trainer-reports-api.xsd">
+http://www.mulesoft.org/schema/mule/trainer-reports-api http://www.mulesoft.org/schema/mule/trainer-reports-api/current/mule-trainer-reports-api.xsd
+http://www.mulesoft.org/schema/mule/assessments-process-api http://www.mulesoft.org/schema/mule/assessments-process-api/current/mule-assessments-process-api.xsd
+http://www.mulesoft.org/schema/mule/historic-trendline-process-api http://www.mulesoft.org/schema/mule/historic-trendline-process-api/current/mule-historic-trendline-process-api.xsd">
 	<qc-process-api:config name="qcProcessAPIConfig" doc:name="QC Process API Config" doc:id="e371d10c-efc8-4600-95b1-2ceb7f83e6a9" />
 	<trainer-reports-api:config name="trainerReportsApiConfig" doc:name="Trainer Reports API Config" doc:id="07cd2c04-e73c-4578-8ba6-debe8fa2245b" property_responseTimeout="10000000"/>
+	<assessments-process-api:config name="assessmentsProcessApiConfig" doc:name="Assessments Process API Config" doc:id="e90f2bf6-df5d-471b-84dd-575cc27b0e9b" />
+	<historic-trendline-process-api:config name="historicTrendlineApiConfig" doc:name="Historic Trendline Process API Config" doc:id="1025df94-7f0e-41a9-8a18-716588fde0db" property_host="caliber-historic-trendline-papi.us-e2.cloudhub.io" property_port="80" property_protocol="HTTP" property_basePath="/api" />
 </mule>
